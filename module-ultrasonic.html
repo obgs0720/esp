@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外接元件：HC-SR04 超音波測距感測器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">⚡ ESP32 創客基地</div>
+        <ul>
+            <li><a href="index.html">首頁/版本介紹</a></li>
+            <li><a href="pinout.html">接腳功能</a></li>
+            <li><a href="module-led.html">基礎 LED 教學</a></li>
+            <li><a href="module-ultrasonic.html" class="active">超音波感測器</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>單元教學：HC-SR04 超音波感測器</h2>
+        <p>本單元介紹如何利用超音波反射的時間差，計算出前方障礙物的具體距離，常用於避障車與自動鐵捲門專案。</p>
+
+        <section style="margin-top: 30px;">
+            <h3>1. 準備材料</h3>
+            <ul>
+                <li>ESP32 開發板 x1</li>
+                <li>HC-SR04 超音波模組 x1</li>
+                <li>麵包板與母對公杜邦線 若干</li>
+            </ul>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>2. 接腳與接線對照</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>HC-SR04 腳位</th>
+                        <th>ESP32 開發板端</th>
+                        <th>說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>VCC</td>
+                        <td><b>VIN / 5V</b></td>
+                        <td>驅動超音波需要 5V 電壓</td>
+                    </tr>
+                    <tr>
+                        <td>Trig (觸發)</td>
+                        <td><b>GPIO 5</b></td>
+                        <td>由 ESP32 發射觸發訊號</td>
+                    </tr>
+                    <tr>
+                        <td>Echo (接收)</td>
+                        <td><b>GPIO 18</b></td>
+                        <td>接收反射訊號（*建議串電阻作 5V 到 3.3V 分壓）</td>
+                    </tr>
+                    <tr>
+                        <td>GND</td>
+                        <td><b>GND</b></td>
+                        <td>共地</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>3. 接線範例圖</h3>
+            <div class="image-placeholder">
+                【請在此放入 HC-SR04 與 ESP32 的實體麵包板接線範例圖】
+            </div>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>4. Arduino IDE 範例程式碼</h3>
+<pre>
+const int trigPin = 5;
+const int echoPin = 18;
+
+// 定義聲音在 20°C 時的速度為 0.0343 公分/微秒
+#define SOUND_SPEED 0.0343
+
+long duration;
+float distanceCm;
+
+void setup() {
+  Serial.begin(115200); // 啟動序列埠監控器
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT);  
+}
+
+void loop() {
+  // 清空 Trig 腳位電位
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  // 觸發發射超音波（持續 10 微秒的高電位）
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // 讀取 Echo 腳位返回脈衝的時間（微秒）
+  duration = pulseIn(echoPin, HIGH);
+  
+  // 計算距離 (時間 * 音速 / 2)
+  distanceCm = duration * SOUND_SPEED / 2;
+  
+  // 將結果輸出至序列埠監控器
+  Serial.print("距離 (cm): ");
+  Serial.println(distanceCm);
+  
+  delay(500); // 每 0.5 秒量測一次
+}
+</pre>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 ESP32 創客基地 - 科技明亮風教學網站範本</p>
+    </footer>
+
+</body>
+</html>
