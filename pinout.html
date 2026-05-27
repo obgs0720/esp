@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 接腳配置與功能說明</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">⚡ ESP32 創客基地</div>
+        <ul>
+            <li><a href="index.html">首頁/版本介紹</a></li>
+            <li><a href="pinout.html" class="active">接腳功能</a></li>
+            <li><a href="module-led.html">基礎 LED 教學</a></li>
+            <li><a href="module-ultrasonic.html">超音波感測器</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>ESP32 Pinout 接腳圖與配置</h2>
+        <p>在開始接線前，了解每個腳位的特殊功能至關重要。部分腳位在開機時有特殊狀態，接錯可能導致無法燒錄程式。</p>
+        
+        <div class="image-placeholder">
+            【請在此處放入您的 ESP32 38Pin / 30Pin 接腳對照圖】
+        </div>
+
+        <h3>常用腳位功能分類表</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>功能分類</th>
+                    <th>建議使用腳位 (GPIO)</th>
+                    <th>備註說明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>數位輸入/輸出 (Digital I/O)</b></td>
+                    <td>GPIO 2, 4, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 32, 33</td>
+                    <td>GPIO 34-39 僅能作輸入(Input Only)，無輸出功能。</td>
+                </tr>
+                <tr>
+                    <td><b>類比輸入 (ADC)</b></td>
+                    <td>GPIO 32, 33, 34, 35, 36, 39 (ADC1)</td>
+                    <td>啟用 Wi-Fi 時，ADC2 (GPIO 0, 2, 4, 12-15, 25-27) 將無法準確讀取。</td>
+                </tr>
+                <tr>
+                    <td><b>I2C 通訊</b></td>
+                    <td>SDA (GPIO 21), SCL (GPIO 22)</td>
+                    <td>連接 LCD1602、OLED 螢幕或各種精準感測器的標準介面。</td>
+                </tr>
+                <tr>
+                    <td><b>PWM 輸出</b></td>
+                    <td>所有可輸出的 GPIO 腳位皆可</td>
+                    <td>可用於控制 LED 亮度與伺服馬達（Servo）角度。</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card" style="border-left: 5px solid #dc3545; background-color: #fff5f5;">
+            <h3 style="color: #dc3545;">⚠️ 新手避坑指南 (Strapping Pins)</h3>
+            <p><b>GPIO 0, 2, 5, 12, 15</b> 為晶片啟動模式設定腳位。建議在初學階段，<b>儘量避免</b>將這些腳位外接會拉高或拉低電平的感測器，以免造成開發板開機失敗或無法進入燒錄模式。</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 ESP32 創客基地 - 科技明亮風教學網站範本</p>
+    </footer>
+
+</body>
+</html>
