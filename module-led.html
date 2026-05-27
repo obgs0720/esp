@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外接元件：LED 閃爍與控制</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">⚡ ESP32 創客基地</div>
+        <ul>
+            <li><a href="index.html">首頁/版本介紹</a></li>
+            <li><a href="pinout.html">接腳功能</a></li>
+            <li><a href="module-led.html" class="active">基礎 LED 教學</a></li>
+            <li><a href="module-ultrasonic.html">超音波感測器</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>單元教學：外接發光二極體 (LED)</h2>
+        <p>本單元將帶領您學習如何透過 ESP32 的數位輸出（Digital Output）功能控制外部 LED 的亮滅。</p>
+
+        <section style="margin-top: 30px;">
+            <h3>1. 準備材料</h3>
+            <ul>
+                <li>ESP32 開發板 x1</li>
+                <li>5mm 紅色 LED x1</li>
+                <li>220歐姆 電阻 x1</li>
+                <li>麵包板與杜邦線 若干</li>
+            </ul>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>2. 接腳與接線對照</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>LED 元件端</th>
+                        <th>ESP32 開發板端</th>
+                        <th>說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>長腳 (正極 Anode)</td>
+                        <td><b>GPIO 23</b></td>
+                        <td>透過串聯 220 歐姆電阻連接至數位輸出腳</td>
+                    </tr>
+                    <tr>
+                        <td>短腳 (負極 Cathode)</td>
+                        <td><b>GND</b></td>
+                        <td>連接至系統接地端</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>3. 接線範例圖</h3>
+            <div class="image-placeholder">
+                【請在此放入 Fritzing 繪製的 ESP32 GPIO23 -> 電阻 -> LED -> GND 接線圖】
+            </div>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>4. Arduino IDE 範例程式碼</h3>
+            <p>請複製以下程式碼至 Arduino IDE 中，並選擇正確的 ESP32 開發板進行燒錄：</p>
+<pre>
+// 定義 LED 接腳為 GPIO 23
+const int ledPin = 23;
+
+void setup() {
+  // 設定該腳位為輸出模式
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH); // 輸出高電位，點亮 LED
+  delay(1000);                // 等待 1 秒 (1000毫秒)
+  
+  digitalWrite(ledPin, LOW);  // 輸出低電位，熄滅 LED
+  delay(1000);                // 等待 1 秒
+}
+</pre>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 ESP32 創客基地 - 科技明亮風教學網站範本</p>
+    </footer>
+
+</body>
+</html>
